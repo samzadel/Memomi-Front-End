@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, Image, Text,TouchableOpacity } from 'react-native';
 
-
 const SignUp = () => {
 
     return (
         <View style={styles.container}>
+            
             <View style={styles.logoContainer}>
                 <Image style={styles.logo} source={require('../assets/images/Logo_Memomi.png')}></Image>
             </View>
+            
             <View style={styles.inputContainer}>
                 <TextInput placeholder="Email" style={styles.email} />
                 <TextInput placeholder="Password" style={styles.password} />
-                <Text style={styles.forgot}>Forgot Password ?</Text>
+                <TextInput placeholder="Username" style={styles.username} />
+                <TextInput placeholder="Year of birth" style={styles.yob} />
             </View>
+            
             <View style={styles.PlayContainer}>
                 <TouchableOpacity style={styles.buttonPlay}>
-                    <Text style={styles.buttonPlayText}>Let's play!</Text>
+                    <Text style={styles.buttonPlayText}>Sign up</Text>
                 </TouchableOpacity>
             </View>
         </View >
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#f7e1bf"
     },
     logoContainer: {
-        flex: 2,
+        flex: 1,
         justifyContent: "center"
     },
     inputContainer: {
@@ -39,6 +42,7 @@ const styles = StyleSheet.create({
     },
     email: {
         borderRadius: 100 / 2,
+        marginTop: 22,
         marginBottom: 35,
         paddingLeft: 15,
         borderColor: "black",
@@ -50,10 +54,22 @@ const styles = StyleSheet.create({
         borderColor: "black",
         borderWidth: 1,
         width: 250,
-        paddingLeft: 15
+        paddingLeft: 15,
+        marginBottom: 35
     },
-    forgot: {
-        marginTop: 6,
+    username: {
+        borderRadius: 100 / 2,
+        borderColor: "black",
+        borderWidth: 1,
+        width: 250,
+        paddingLeft: 15,
+        marginBottom: 35
+    },
+    yob: {
+        borderRadius: 100 / 2,
+        borderColor: "black",
+        borderWidth: 1,
+        width: 250,
         paddingLeft: 15
     },
     buttonPlay: {
@@ -71,8 +87,8 @@ const styles = StyleSheet.create({
         color: "white"
     },
     PlayContainer:{
-        flex:2,
-        // justifyContent:
+        flex:1,
+        justifyContent: "flex-end"
     }
 
 });

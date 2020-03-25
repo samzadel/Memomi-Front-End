@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native';
+import * as Animatable from 'react-native-animatable';
 
 
 const WelcomePage = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.titleContainer}>
+            <Animatable.View style={styles.titleContainer} animation="slideInDown" duration={900} useNativeDriver={true}>
                 <Image style={styles.logo} source={require('../assets/images/Logo_Memomi.png')}></Image>
-            </View>
+            </Animatable.View>
             <View style={styles.buttonContainerSignUp}>
                 <TouchableOpacity style={styles.buttonSignUp}>
                     <Text style={styles.buttonSignUpText} onPress= {() => navigation.navigate('SignUp')}>Sign up</Text>

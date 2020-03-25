@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Image, Text,TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TextInput, Image, Text,TouchableOpacity, Animated, KeyboardAvoidingView } from 'react-native';
 
 
 const Login = () => {
 
     return (
-        <View style={styles.container}>
-            <View style={styles.logoContainer}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset="-300">
                 <Image style={styles.logo} source={require('../assets/images/Logo_Memomi.png')}></Image>
-            </View>
-            <View style={styles.inputContainer}>
                 <TextInput placeholder="Email" style={styles.email} />
                 <TextInput placeholder="Password" style={styles.password} />
                 <Text style={styles.forgot}>Forgot Password ?</Text>
-            </View>
-            <View style={styles.PlayContainer}>
                 <TouchableOpacity style={styles.buttonPlay}>
                     <Text style={styles.buttonPlayText}>Let's play!</Text>
                 </TouchableOpacity>
-            </View>
-        </View >
+        </KeyboardAvoidingView >
     );
 };
 
@@ -39,6 +33,7 @@ const styles = StyleSheet.create({
     },
     email: {
         borderRadius: 100 / 2,
+        marginTop:20,
         marginBottom: 35,
         paddingLeft: 15,
         borderColor: "black",
@@ -62,8 +57,8 @@ const styles = StyleSheet.create({
         backgroundColor: "#606060", 
         alignItems: 'center', 
         justifyContent: 'center', 
-        marginBottom: 20, 
-        marginTop: 70 ,
+        // marginBottom: 20, 
+        marginTop: 50 ,
         borderRadius: 100 /2
     },
     buttonPlayText: {
