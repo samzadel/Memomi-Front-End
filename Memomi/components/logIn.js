@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, TextInput, Image, Text,TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 
-const Login = () => {
+const Login = ({navigation}) => {
 
 
     return (
@@ -13,8 +13,8 @@ const Login = () => {
                 <TextInput placeholder="Email" style={styles.email} />
                 <TextInput placeholder="Password" style={styles.password} />
                 <Text style={styles.forgot}>Forgot Password ?</Text>
-                <TouchableOpacity style={styles.buttonPlay}>
-                    <Text style={styles.buttonPlayText}>Let's play!</Text>
+                <TouchableOpacity style={styles.buttonPlay}  onPress= {() => navigation.navigate('menu')}>
+                    <Text style={styles.buttonPlayText}>Log In!</Text>
                 </TouchableOpacity>
         </KeyboardAvoidingView >
     );
