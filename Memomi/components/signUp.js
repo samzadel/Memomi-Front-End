@@ -1,27 +1,21 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Image, Text,TouchableOpacity } from 'react-native';
+import React from 'react';
+import { StyleSheet, View, TextInput, Image, Text, TouchableOpacity } from 'react-native';
+import HideWithKeyboard from 'react-native-hide-with-keyboard';
 
 const SignUp = () => {
 
     return (
-        <View style={styles.container}>
-            
-            <View style={styles.logoContainer}>
+        <View style={styles.container} behavior="padding">
+            <HideWithKeyboard>
                 <Image style={styles.logo} source={require('../assets/images/Logo_Memomi.png')}></Image>
-            </View>
-            
-            <View style={styles.inputContainer}>
-                <TextInput placeholder="Email" style={styles.email} />
-                <TextInput placeholder="Password" style={styles.password} />
-                <TextInput placeholder="Username" style={styles.username} />
-                <TextInput placeholder="Year of birth" style={styles.yob} />
-            </View>
-            
-            <View style={styles.PlayContainer}>
-                <TouchableOpacity style={styles.buttonPlay}>
-                    <Text style={styles.buttonPlayText}>Sign up</Text>
-                </TouchableOpacity>
-            </View>
+            </HideWithKeyboard>
+            <TextInput placeholder="Email" style={styles.email} />
+            <TextInput placeholder="Password" style={styles.password} />
+            <TextInput placeholder="Username" style={styles.username} />
+            <TextInput placeholder="Year of birth" style={styles.yob} />
+            <TouchableOpacity style={styles.buttonPlay}>
+                <Text style={styles.buttonPlayText}>Sign up</Text>
+            </TouchableOpacity>
         </View >
     );
 };
@@ -33,13 +27,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: "#f7e1bf"
     },
-    logoContainer: {
-        flex: 1,
-        justifyContent: "center"
-    },
-    inputContainer: {
-        flex: 1
-    },
+    // logo: {
+    //     marginTop:15
+    // },
     email: {
         borderRadius: 100 / 2,
         marginTop: 22,
@@ -70,25 +60,22 @@ const styles = StyleSheet.create({
         borderColor: "black",
         borderWidth: 1,
         width: 250,
-        paddingLeft: 15
+        paddingLeft: 15,
+        marginBottom: 35
     },
     buttonPlay: {
-        width:180, 
-        height: 50, 
-        backgroundColor: "#606060", 
-        alignItems: 'center', 
-        justifyContent: 'center', 
-        marginBottom: 20, 
-        marginTop: 70 ,
-        borderRadius: 100 /2
+        width: 180,
+        height: 50,
+        backgroundColor: "#606060",
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
+        marginTop: 10,
+        borderRadius: 100 / 2
     },
     buttonPlayText: {
-        fontSize: 20, 
+        fontSize: 20,
         color: "white"
-    },
-    PlayContainer:{
-        flex:1,
-        justifyContent: "flex-end"
     }
 
 });

@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, Image, Text,TouchableOpacity, Animated, KeyboardAvoidingView } from 'react-native';
-
+import React from 'react';
+import { StyleSheet, TextInput, Image, Text,TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import HideWithKeyboard from 'react-native-hide-with-keyboard';
 
 const Login = () => {
 
+
     return (
         <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset="-300">
-                <Image style={styles.logo} source={require('../assets/images/Logo_Memomi.png')}></Image>
+                <HideWithKeyboard>
+                    <Image source={require('../assets/images/Logo_Memomi.png')}></Image>
+                </HideWithKeyboard>
                 <TextInput placeholder="Email" style={styles.email} />
                 <TextInput placeholder="Password" style={styles.password} />
                 <Text style={styles.forgot}>Forgot Password ?</Text>
@@ -23,13 +26,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "#f7e1bf"
-    },
-    logoContainer: {
-        flex: 2,
-        justifyContent: "center"
-    },
-    inputContainer: {
-        flex: 1
     },
     email: {
         borderRadius: 100 / 2,
@@ -57,17 +53,12 @@ const styles = StyleSheet.create({
         backgroundColor: "#606060", 
         alignItems: 'center', 
         justifyContent: 'center', 
-        // marginBottom: 20, 
         marginTop: 50 ,
         borderRadius: 100 /2
     },
     buttonPlayText: {
         fontSize: 20, 
         color: "white"
-    },
-    PlayContainer:{
-        flex:2,
-        // justifyContent:
     }
 
 });
