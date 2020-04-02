@@ -1,58 +1,87 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Image, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/Fontisto';
 
 
 const menu = () => {
 
-
     return (
         <View style={styles.container}>
-            <Text style={styles.baseText}> Hello, </Text>
-            <Image source={require('../assets/images/unnamed.gif')}></Image>
-            <TextInput placeholder="Password" style={styles.password} />
-            <Text style={styles.forgot}>Forgot Password ?</Text>
-            <TouchableOpacity style={styles.buttonPlay}>
-                <Text style={styles.buttonPlayText}>Let's play!</Text>
-            </TouchableOpacity>
-        </View >
-    );
+            <View style={styles.container1}>
+                <TouchableOpacity style={styles.buttonProfile}>
+                    <Icon name="user-circle-o" color="#000CCC" size={40} style={styles.iconProfile}/>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonProfile}>
+                    <Icon2 name="player-settings" color="#000CCC" size={40} style={styles.iconSetting} />
+                </TouchableOpacity>
+            </View>
+            <View style={styles.container2}>
+                <Text style={styles.baseText}> Hello, </Text>
+            </View>
+            <View style={styles.container3}>
+            <Image source={require('../assets/images/unnamed.gif')} style={styles.imageJeux}></Image>
+                 <TouchableOpacity style={styles.buttonPlay}>
+                     <Text style={styles.buttonPlayText}>Let's play!</Text>
+                 </TouchableOpacity>
+            </View>
+        </View>
+    )
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
         backgroundColor: "#f7e1bf"
     },
-    baseText: {
+    container1: {
+        flex: 1,
+        flexDirection: "row",
+        justifyContent: "space-between"
+    },
+    container2: {
+        flex: 1,
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-end"
+    },
+    container3: {
+        flex: 4,
+        alignItems: "center"
+    },
+    iconProfile: {
+        marginTop: 10,
+        marginLeft: 10
+    },
+    iconSetting: {
+        marginTop: 10,
+        marginRight: 10
+    },
+    imageJeux: {
+        aspectRatio: 0.6,
+        marginBottom: 100,
+        resizeMode: 'contain',
+    },
+    baseText: {
+        fontFamily: "notoserif",
+        fontWeight: "bold",
+        fontSize: 40,
         color: "#606060"
     },
-    password: {
-        borderRadius: 100 / 2,
-        borderColor: "black",
-        borderWidth: 1,
-        width: 250,
-        paddingLeft: 15
-    },
-    forgot: {
-        marginTop: 6,
-        paddingLeft: 15
-    },
     buttonPlay: {
+        position: "absolute",
+        marginTop: 195,
+        marginLeft: 40,
         width: 180,
         height: 50,
-        backgroundColor: "#606060",
+        backgroundColor: "white",
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: 50,
-        borderRadius: 100 / 2
+        borderColor: "black",
     },
     buttonPlayText: {
-        fontSize: 20,
-        color: "white"
+        fontWeight: "bold",
+        fontSize: 29,
+        color: "black"
     }
 
 });
