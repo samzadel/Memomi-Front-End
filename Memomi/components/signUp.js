@@ -1,19 +1,44 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TextInput, Image, Text, TouchableOpacity } from 'react-native';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 
 const SignUp = () => {
+    const [value, onChangeText] = useState(
+        {
+            email: '',
+            password: '',
+            username: '',
+            year_birth: ''
+        }
+    );
 
-    return (
+    const test = () => {
+        return fetch('http://10.0.2.2:3000/hava', {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+             }
+         })
+         .then((response) => response.json())
+         .then((response) => {
+            console.log(response);
+         }) 
+         .catch((error) => {
+            console.error(error);
+         });
+    };
+
+    return ( 
         <View style={styles.container} behavior="padding">
             <HideWithKeyboard>
                 <Image style={styles.logo} source={require('../assets/images/Logo_Memomi.png')}></Image>
             </HideWithKeyboard>
-            <TextInput placeholder="Email" style={styles.email} />
-            <TextInput placeholder="Password" style={styles.password} />
-            <TextInput placeholder="Username" style={styles.username} />
-            <TextInput placeholder="Year of birth" style={styles.yob} />
-            <TouchableOpacity style={styles.buttonPlay}>
+            <TextInput placeholder="Email" style={styles.email} onChangeText={text => onChangeText({ ...value, email: text })} />
+            <TextInput placeholder="Password" style={styles.password} onChangeText={text => onChangeText({ ...value, password: text })} />
+            <TextInput placeholder="Username" style={styles.username} onChangeText={text => onChangeText({ ...value, username: text })} />
+            <TextInput placeholder="Year of birth" style={styles.yob} onChangeText={text => onChangeText({ ...value, year_birth: text })} />
+            <TouchableOpacity style={styles.buttonPlay} onPress={test}>
                 <Text style={styles.buttonPlayText}>Sign up</Text>
             </TouchableOpacity>
         </View >

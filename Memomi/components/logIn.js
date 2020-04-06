@@ -4,6 +4,17 @@ import HideWithKeyboard from 'react-native-hide-with-keyboard';
 
 const Login = ({navigation}) => {
 
+    function test() {
+        return fetch('https://jsonplaceholder.typicode.com/posts/1')
+          .then((response) => response.json())
+          .then((json) => {
+            console.log(json);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset="-300">
@@ -13,12 +24,14 @@ const Login = ({navigation}) => {
                 <TextInput placeholder="Email" style={styles.email} />
                 <TextInput placeholder="Password" style={styles.password} />
                 <Text style={styles.forgot}>Forgot Password ?</Text>
-                <TouchableOpacity style={styles.buttonPlay}  onPress= {() => navigation.navigate('menu')}>
+                <TouchableOpacity style={styles.buttonPlay}  onPress= {test}>
                     <Text style={styles.buttonPlayText}>Log In!</Text>
                 </TouchableOpacity>
         </KeyboardAvoidingView >
     );
 };
+
+// () => navigation.navigate('menu')
 
 const styles = StyleSheet.create({
     container: {
