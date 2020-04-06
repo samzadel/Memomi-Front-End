@@ -13,20 +13,22 @@ const SignUp = () => {
     );
 
     const test = () => {
+        console.log(JSON.stringify(value))
         return fetch('http://10.0.2.2:3000/hava', {
-            method: 'GET',
+            method: 'POST',
             headers: {
-                'Accept': 'application/json',
+                'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
-             }
+             },
+             body: JSON.stringify(value)
          })
          .then((response) => response.json())
          .then((response) => {
             console.log(response);
          }) 
-         .catch((error) => {
+         .catch((error) => { 
             console.error(error);
-         });
+         }); 
     };
 
     return ( 
