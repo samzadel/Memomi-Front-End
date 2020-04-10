@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import WelcomePage from './components/welcomePage';
 import Login from './components/logIn';
-import SignUp from './components/signUp';
+import SignUp from './components/signUp/signUp';
 import menu from './components/menu';
 
 const Stack = createStackNavigator();
