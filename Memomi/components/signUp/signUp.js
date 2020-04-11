@@ -3,68 +3,72 @@ import { StyleSheet, View, TextInput, Image, Text, TouchableOpacity } from 'reac
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import { Formik } from 'formik';
 import * as yup from 'yup';
-import fieldInput from './FieldInput/fieldInput'
 
-const SignUp = () => {
-    // const [value, onChangeText] = useState(
-    //     {
-    //         email: '',
-    //         password: '',
-    //         username: '',
-    //         year_birth: ''
-    //     }
-    // );
-    
+const SignUp = ({navigation}) => {
 
-    const test = () => {
+
+    const test = (value) => {
         return fetch('http://10.0.2.2:3000/hava', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
-             },
-             body: JSON.stringify(value)
-         })
-         .then((response) => response.json())
-         .then((response) => {
-            console.log(response);
-         }) 
-         .catch((error) => { 
-            console.error(error);
-         }); 
+            },
+            body: JSON.stringify(value)
+        })
+            .then((response) => response.json())
+            .then((response) => {
+                console.log(response);
+                if (response == 'succeed'){
+                    navigation.navigate('menu')
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
     const validationSchema = yup.object().shape({
-        email : yup.string().email('Invalid email').required('Email required'),
-        password: yup.string().required('Password required').min(5,'Too short!').max(10,'Too long!'),
-        // username: yup.string().required('Username required').matches(/[^A-Za-z0-9]+/,"Must contain only letters and numbers"),
-        // year_birth: yup.string().required('The year of birth is required').matches(/^(19[0-9][0-9]|20[01][0-9]|2020)$/,"Please choose a correct year of birth")
+        email: yup.string().email('Invalid email').required('Email required'),
+        password: yup.string().required('Password required').min(5, 'Too short!').max(10, 'Too long!'),
+        year_birth: yup.string().required('The year of birth is required').matches(/^(19[0-9][0-9]|20[01][0-9]|2020)$/, "Please choose a correct year of birth")
     })
 
-    return ( 
+    return (
         <View style={styles.container} behavior="padding">
             <HideWithKeyboard>
                 <Image style={styles.logo} source={require('../../assets/images/Logo_Memomi.png')}></Image>
             </HideWithKeyboard>
-            <Formik 
-                initialValues={{ email: '', password: '', username: '', year_birth: '' }}
-                onSubmit = {(values)=>{
-                    console.log(values)
+            <Formik
+                initialValues={{ email: '', password: '', year_birth: '' }}
+                onSubmit={(values)=>{
+                    test(values)
                 }}
-                validationSchema = {validationSchema}
+                validationSchema={validationSchema}
             >
                 {
-                    ({ handleChange, handleBlur, handleSubmit, errors, touched, isValid }) => (
-                    <>     
-                       <TextInput placeholder="Email" style={styles.email} onChangeText={handleChange('email')} onBlur={handleBlur('email')} />
-                    {errors.email && touched.email ? <Text style={{color: "red"}}>{ errors.email}</Text> : null}
-                        <TextInput placeholder="Password" style={styles.password} onChangeText={handleChange('password')} onBlur={handleBlur('password')} />
-                    {errors.password && touched.password ? <Text style={{ color: "red"}}>{ errors.password }</Text> : null }
-                        <fieldInput formikProps={handleChange,handleBlur} formikKey="username"/>
-                        <TouchableOpacity style={styles.buttonPlay} onPress={handleSubmit} disabled={!isValid}>
-                            <Text style={styles.buttonPlayText}>Sign up</Text>
-                        </TouchableOpacity>
-                    </> 
+                    formikProps => (
+                        <>
+                            <TextInput placeholder="Email" style={styles.email} onChangeText={formikProps.handleChange('email')} onBlur={formikProps.handleBlur('email')} />
+                            {formikProps.errors.email && formikProps.touched.email ? <Text style={{ color: "red" }}>{formikProps.errors.email}</Text> : null}
+                            <TextInput placeholder="Password" style={styles.password} onChangeText={formikProps.handleChange('password')} onBlur={formikProps.handleBlur('password')} />
+                            {formikProps.errors.password && formikProps.touched.password ? <Text style={{ color: "red" }}>{formikProps.errors.password}</Text> : null}
+                            <TextInput placeholder="Year of birth" style={styles.yob} onChangeText={formikProps.handleChange('year_birth')} onBlur={formikProps.handleBlur('year_birth')} />
+                            {formikProps.errors.year_birth && formikProps.touched.year_birth ? <Text style={{ color: "red" }}>{formikProps.errors.year_birth}</Text> : null}
+                
+                            {
+                                !formikProps.isValid || !formikProps.dirty ?
+                                <TouchableOpacity style={[ styles.buttonPlay, { opacity: 0.7 } ]} onPress={formikProps.handleSubmit} disabled={true}>
+                                    <Text style={styles.buttonPlayText}>Sign up</Text>
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity style={styles.buttonPlay} onPress={formikProps.handleSubmit}>
+                                    <Text style={styles.buttonPlayText}>Sign up</Text>
+                                </TouchableOpacity>
+                            }
+                            
+                            
+                        </>
                     )
                 }
             </Formik>
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
     email: {
         borderRadius: 100 / 2,
         marginTop: 22,
-        marginBottom: 35,
+        // marginBottom: 35,
         paddingLeft: 15,
         borderColor: "black",
         borderWidth: 1,
@@ -96,15 +100,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 250,
         paddingLeft: 15,
-        marginBottom: 35
-    },
-    username: {
-        borderRadius: 100 / 2,
-        borderColor: "black",
-        borderWidth: 1,
-        width: 250,
-        paddingLeft: 15,
-        marginBottom: 35
+        marginTop: 25
+        // marginBottom: 35
     },
     yob: {
         borderRadius: 100 / 2,
@@ -112,7 +109,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 250,
         paddingLeft: 15,
-        marginBottom: 35
+        marginTop: 25
     },
     buttonPlay: {
         width: 180,
@@ -121,7 +118,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 20,
-        marginTop: 10,
+        marginTop: 25,
         borderRadius: 100 / 2
     },
     buttonPlayText: {
