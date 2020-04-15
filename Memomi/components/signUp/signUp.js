@@ -6,7 +6,6 @@ import * as yup from 'yup';
 
 const SignUp = ({navigation}) => {
 
-
     const test = (value) => {
         return fetch('http://10.0.2.2:3000/hava', {
             method: 'POST',
@@ -18,10 +17,7 @@ const SignUp = ({navigation}) => {
         })
             .then((response) => response.json())
             .then((response) => {
-                console.log(response);
-                if (response == 'succeed'){
-                    navigation.navigate('menu')
-                }
+                return response
             })
             .catch((error) => {
                 console.error(error);
@@ -41,8 +37,14 @@ const SignUp = ({navigation}) => {
             </HideWithKeyboard>
             <Formik
                 initialValues={{ email: '', password: '', year_birth: '' }}
-                onSubmit={(values)=>{
-                    test(values)
+                onSubmit={(values,actions)=>{
+                    test(values).then((response)=>{
+                        if(response == 'email exists'){
+                            actions.setFieldError('email','This email already exists')
+                        }else{
+                            navigation.navigate('menu')
+                        }
+                    })
                 }}
                 validationSchema={validationSchema}
             >
@@ -58,7 +60,7 @@ const SignUp = ({navigation}) => {
                 
                             {
                                 !formikProps.isValid || !formikProps.dirty ?
-                                <TouchableOpacity style={[ styles.buttonPlay, { opacity: 0.7 } ]} onPress={formikProps.handleSubmit} disabled={true}>
+                                <TouchableOpacity style={[ styles.buttonPlay, { opacity: 0.7 } ]} disabled={true}>
                                     <Text style={styles.buttonPlayText}>Sign up</Text>
                                 </TouchableOpacity>
                                 :
