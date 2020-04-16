@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, TextInput, Image, Text, TouchableOpacity } from 'react-native';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
@@ -42,6 +43,14 @@ const SignUp = ({navigation}) => {
                         if(response == 'email exists'){
                             actions.setFieldError('email','This email already exists')
                         }else{
+                            storeToken = async () => {
+                                try {
+                                  await AsyncStorage.setItem('myToken', response['token'])
+                                } catch (e) {
+                                    console.log(e)
+                                }
+                              }
+                              storeToken()
                             navigation.navigate('menu')
                         }
                     })
