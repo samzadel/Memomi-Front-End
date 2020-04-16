@@ -8,7 +8,7 @@ import * as yup from 'yup';
 const SignUp = ({navigation}) => {
 
     const test = (value) => {
-        return fetch('http://10.0.2.2:3000/hava', {
+        return fetch('http://10.0.2.2:3000/signUp', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
