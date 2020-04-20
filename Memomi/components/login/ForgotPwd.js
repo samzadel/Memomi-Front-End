@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import { StyleSheet, TextInput, Image, Text, TouchableOpacity, KeyboardAvoidingView, View, Keyboard } from 'react-native';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -7,8 +7,6 @@ import * as yup from 'yup';
 
 
 const ForgotPwd = ({ navigation }) => {
-
-    const [succeed, changeSucceed] = useState(false)
 
     const test = (value) => {
         return fetch('http://10.0.2.2:3000/ForgotPwd', {
@@ -31,23 +29,12 @@ const ForgotPwd = ({ navigation }) => {
         email: yup.string().email('Invalid email').required('Email required'),
     })
 
-    const changeStyle = function (option) {
-        if (option) {
-            Keyboard.dismiss()
-            return {
-                display: "none"
-            }
-        }
-    }
-
 
     return (
         <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset="-300">
             <HideWithKeyboard>
                 <Image source={require('../../assets/images/Logo_Memomi.png')}></Image>
             </HideWithKeyboard>
-            {succeed ? <Text style={{fontSize: 30}}>Go to check your email</Text> : null}
-            <View style ={changeStyle(succeed)}>
             <Formik
                 initialValues={{ email: '' }}
                 onSubmit={(values, actions) => {
@@ -56,7 +43,9 @@ const ForgotPwd = ({ navigation }) => {
                             actions.setFieldError('email', 'The email is invalid')
                         }
                         if (response == 'succeed') {
-                            changeSucceed(true)
+                            Keyboard.dismiss()
+                            navigation.navigate("Succeed")
+                            
                         }
                     })
                 }}
@@ -81,7 +70,6 @@ const ForgotPwd = ({ navigation }) => {
                     )
                 }
             </Formik>
-            </View>
         </KeyboardAvoidingView >
     );
 };

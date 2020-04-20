@@ -9,6 +9,8 @@ import Login from './components/login/logIn';
 import SignUp from './components/signUp/signUp';
 import menu from './components/menu';
 import ForgotPwd from './components/login/ForgotPwd'
+import Succeed from './components/login/succeedTitle'
+
 
 const Stack = createStackNavigator();
 
@@ -53,6 +55,7 @@ const App = () => {
        <Stack.Screen name="SignUp" component={SignUp}/>
        <Stack.Screen name="menu" component={menu}/>
        <Stack.Screen name="ForgotPwd" component={ForgotPwd}/>
+       <Stack.Screen name="Succeed" component={Succeed}/>
      </Stack.Navigator>
     </NavigationContainer>
   );
