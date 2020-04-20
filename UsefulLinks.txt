@@ -1,2 +1,8 @@
 BackgroundColor:
 https://uigradients.com/#Margo
+
+Identifiant Gmail:
+app.memomi@gmail.com
+
+Mot de passe:
+Za021166

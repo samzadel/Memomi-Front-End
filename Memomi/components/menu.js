@@ -17,7 +17,7 @@ const menu = () => {
                 </TouchableOpacity>
             </View>
             <View style={styles.container2}>
-                <Text style={styles.baseText}> Hello, </Text>
+                <Text style={styles.baseText}> Hello, you ! </Text>
             </View>
             <View style={styles.container3}>
             <Image source={require('../assets/images/unnamed.gif')} style={styles.imageJeux}></Image>

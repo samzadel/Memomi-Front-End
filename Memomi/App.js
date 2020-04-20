@@ -5,9 +5,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import WelcomePage from './components/welcomePage';
-import Login from './components/logIn';
+import Login from './components/login/logIn';
 import SignUp from './components/signUp/signUp';
 import menu from './components/menu';
+import ForgotPwd from './components/login/ForgotPwd'
 
 const Stack = createStackNavigator();
 
@@ -51,6 +52,7 @@ const App = () => {
        <Stack.Screen name="Login" component={Login}/>
        <Stack.Screen name="SignUp" component={SignUp}/>
        <Stack.Screen name="menu" component={menu}/>
+       <Stack.Screen name="ForgotPwd" component={ForgotPwd}/>
      </Stack.Navigator>
     </NavigationContainer>
   );

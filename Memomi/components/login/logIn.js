@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TextInput, Image, Text,TouchableOpacity, KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, TextInput, Image, Text,TouchableOpacity, KeyboardAvoidingView ,Keyboard} from 'react-native';
 import HideWithKeyboard from 'react-native-hide-with-keyboard';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Formik } from 'formik';
@@ -33,12 +33,19 @@ const Login = ({navigation}) => {
     return (
         <KeyboardAvoidingView style={styles.container} behavior="padding" keyboardVerticalOffset="-300">
                 <HideWithKeyboard>
-                    <Image source={require('../assets/images/Logo_Memomi.png')}></Image>
+                    <Image source={require('../../assets/images/Logo_Memomi.png')}></Image>
                 </HideWithKeyboard>
                 <Formik
                 initialValues={{ email: '', password: '' }}
                 onSubmit={(values,actions)=>{
                     test(values).then((response)=>{
+                        console.log(response)
+                        if(response == 'Email doesn\'t found'){
+                            actions.setFieldError('email','The email is invalid')
+                        }
+                        if(response == 'Bad password'){
+                            actions.setFieldError('password','The password is invalid')
+                        }
                         if(response['message'] == 'succeed'){
                             storeToken = async () => {
                                 try {
@@ -48,9 +55,8 @@ const Login = ({navigation}) => {
                                 }
                               }
                               storeToken()
+                              Keyboard.dismiss()
                             navigation.navigate('menu')
-                        }else{
-                            actions.setFieldError('general','The password or the email are invalid')
                         }
                     })
                 }}
@@ -63,8 +69,7 @@ const Login = ({navigation}) => {
                             {formikProps.errors.email && formikProps.touched.email ? <Text style={{ color: "red" }}>{formikProps.errors.email}</Text> : null}
                             <TextInput placeholder="Password" style={styles.password} onChangeText={formikProps.handleChange('password')} onBlur={formikProps.handleBlur('password')} />
                             {formikProps.errors.password && formikProps.touched.password ? <Text style={{ color: "red" }}>{formikProps.errors.password}</Text> : null}
-                            <Text style={styles.forgot}>Forgot Password ?</Text>
-                            {formikProps.errors.general ? <Text style={{color:"red",marginTop: 10}}>{formikProps.errors.general}</Text> : null}
+                            <Text style={styles.forgot} onPress={()=>{navigation.navigate('ForgotPwd')}}>Forgot Password ?</Text>
                             {
                                 !formikProps.isValid || !formikProps.dirty ?
                                 <TouchableOpacity style={[ styles.buttonPlay, { opacity: 0.7 } ]} disabled={true}>
@@ -111,7 +116,8 @@ const styles = StyleSheet.create({
     },
     forgot: {
         marginTop: 6,
-        paddingLeft: 15
+        paddingLeft: 15,
+        textDecorationLine: 'underline'
     },
     buttonPlay: {
         width:180, 
