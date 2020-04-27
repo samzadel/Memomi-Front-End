@@ -17,6 +17,9 @@ const WelcomePage = ({navigation}) => {
                 <TouchableOpacity style={styles.buttonLogin} onPress= {() => navigation.navigate('Login')}>
                     <Text style={styles.buttonLoginText}>Log in</Text>
                 </TouchableOpacity>
+                {/* <TouchableOpacity style={styles.buttonLogin} onPress= {() => navigation.navigate('menu')}>
+                    <Text style={styles.buttonLoginText}>skip</Text>
+                </TouchableOpacity> */}
             </View>
         </View>
     );

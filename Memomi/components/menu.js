@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Fontisto';
 
 
-const menu = () => {
+const menu = ({navigation}) => {
 
     return (
         <View style={styles.container}>
@@ -20,9 +20,8 @@ const menu = () => {
                 <Text style={styles.baseText}> Hello, you ! </Text>
             </View>
             <View style={styles.container3}>
-            <Image source={require('../assets/images/unnamed.gif')} style={styles.imageJeux}></Image>
                  <TouchableOpacity style={styles.buttonPlay}>
-                     <Text style={styles.buttonPlayText}>Let's play!</Text>
+                     <Text style={styles.buttonPlayText} onPress= {() => navigation.navigate('Game')}>Let's play</Text>
                  </TouchableOpacity>
             </View>
         </View>
@@ -32,7 +31,7 @@ const menu = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#f7e1bf"
+        backgroundColor: "#ffece5"
     },
     container1: {
         flex: 1,
@@ -65,15 +64,16 @@ const styles = StyleSheet.create({
         fontFamily: "notoserif",
         fontWeight: "bold",
         fontSize: 40,
-        color: "#606060"
+        color: "#152d7d"
     },
     buttonPlay: {
+        borderRadius: 10,
         position: "absolute",
-        marginTop: 195,
+        marginTop: 150,
         marginLeft: 40,
-        width: 180,
-        height: 50,
-        backgroundColor: "white",
+        width: 200,
+        height: 70,
+        backgroundColor: "#494949",
         alignItems: 'center',
         justifyContent: 'center',
         borderColor: "black",
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     buttonPlayText: {
         fontWeight: "bold",
         fontSize: 29,
-        color: "black"
+        color: "white"
     }
 
 });
