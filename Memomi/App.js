@@ -1,71 +1,57 @@
-import 'react-native-gesture-handler';
-import * as React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import AsyncStorage from '@react-native-community/async-storage';
-import WelcomePage from './components/welcomePage';
-import Login from './components/login/logIn';
-import SignUp from './components/signUp/signUp';
-import menu from './components/menu';
-import ForgotPwd from './components/login/ForgotPwd'
-import Succeed from './components/login/succeedTitle'
-
-
-const Stack = createStackNavigator();
-
-const getData = async () => {
-  try {
-    const value = await AsyncStorage.getItem('myToken')
-    console.log(value)
-    if(value !== null) {
-      return true
-    }
-  } catch(e) {
-    console.log(e)
-  }
-}
+import * as React from 'react'; 
+import { NavigationContainer,useLinking } from '@react-navigation/native';
+import MyNavigation from './components/navigation';
 
 const App = () => {
-  return (
-    // <NavigationContainer>
-    //   {
-    //     getData() == true ?
-    //     <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-    //     <Stack.Screen name="Home" component={WelcomePage}/>
-    //     <Stack.Screen name="Login" component={Login}/>
-    //     <Stack.Screen name="SignUp" component={SignUp}/>
-    //     <Stack.Screen name="menu" component={menu}/>
-    //   </Stack.Navigator>
-    //   :
-    //   <Stack.Navigator initialRouteName="menu" screenOptions={{headerShown: false}}>
-    //     <Stack.Screen name="Home" component={WelcomePage}/>
-    //     <Stack.Screen name="Login" component={Login}/>
-    //     <Stack.Screen name="SignUp" component={SignUp}/>
-    //     <Stack.Screen name="menu" component={menu}/>
-    //   </Stack.Navigator>
-    //   }
-      
-    // </NavigationContainer>
 
-   <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-       <Stack.Screen name="Home" component={WelcomePage}/>
-       <Stack.Screen name="Login" component={Login}/>
-       <Stack.Screen name="SignUp" component={SignUp}/>
-       <Stack.Screen name="menu" component={menu}/>
-       <Stack.Screen name="ForgotPwd" component={ForgotPwd}/>
-       <Stack.Screen name="Succeed" component={Succeed}/>
-     </Stack.Navigator>
+  const ref = React.useRef();
+
+  const { getInitialState } = useLinking(ref, {
+    prefixes: ['http://myapp'],
+    config: { Screen2: 'screen2' }
+  });
+
+  const [isReady, setIsReady] = React.useState(false);
+  const [initialState, setInitialState] = React.useState();
+
+  React.useEffect(() => {
+    Promise.race([
+      getInitialState(),
+      new Promise(resolve =>
+        // Timeout in 150ms if `getInitialState` doesn't resolve
+        // Workaround for https://github.com/facebook/react-native/issues/25675
+        setTimeout(resolve, 150)
+      ),console.log(ref)
+    ])
+      .catch(e => {
+        console.error(e);
+      })
+      .then(state => {
+        if (state !== undefined) {
+          setInitialState(state);
+          console.log(state)
+        }
+
+        setIsReady(true);
+      });
+      console.log(initialState)
+  }, [getInitialState]);
+
+  if (!isReady) {
+    return null;
+  }
+
+  console.log(initialState)
+
+
+
+  return (
+   <NavigationContainer initialState={initialState} ref={ref}>
+      <MyNavigation/>
     </NavigationContainer>
   );
 
 };
-
-
-const styles = StyleSheet.create({
-  
-});
 
 
 
