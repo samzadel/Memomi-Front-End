@@ -2,7 +2,7 @@ import * as React from 'react';
 import { createStackNavigator  } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import WelcomePage from './welcomePage';
-import Screen2 from './login/logIn';
+import Login from './login/logIn';
 import SignUp from './signUp/signUp';
 import menu from './menu';
 import ForgotPwd from './login/ForgotPwd'
@@ -26,7 +26,7 @@ const MyNavigation = () => {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }} >
             <Stack.Screen name="Home" component={WelcomePage} />
-            <Stack.Screen name="Screen2" component={Screen2} />
+            <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="menu" component={menu} />
             <Stack.Screen name="ForgotPwd" component={ForgotPwd} />

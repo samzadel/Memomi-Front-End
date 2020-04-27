@@ -1,6 +1,7 @@
 import * as React from 'react'; 
 import { NavigationContainer,useLinking } from '@react-navigation/native';
 import MyNavigation from './components/navigation';
+import Login from './components/login/logIn';
 
 const App = () => {
 
@@ -8,7 +9,7 @@ const App = () => {
 
   const { getInitialState } = useLinking(ref, {
     prefixes: ['http://myapp'],
-    config: { Screen2: 'screen2' }
+    config: { Login: "Login" }
   });
 
   const [isReady, setIsReady] = React.useState(false);
@@ -21,7 +22,7 @@ const App = () => {
         // Timeout in 150ms if `getInitialState` doesn't resolve
         // Workaround for https://github.com/facebook/react-native/issues/25675
         setTimeout(resolve, 150)
-      ),console.log(ref)
+      ),
     ])
       .catch(e => {
         console.error(e);
@@ -29,7 +30,6 @@ const App = () => {
       .then(state => {
         if (state !== undefined) {
           setInitialState(state);
-          console.log(state)
         }
 
         setIsReady(true);
@@ -41,7 +41,7 @@ const App = () => {
     return null;
   }
 
-  console.log(initialState)
+  
 
 
 
