@@ -5,9 +5,10 @@ import WelcomePage from './welcomePage';
 import Login from './login/logIn';
 import SignUp from './signUp/signUp';
 import menu from './menu';
-import ForgotPwd from './login/ForgotPwd'
-import Succeed from './login/succeedTitle'
-import Game from './game/game'
+import ForgotPwd from './login/ForgotPwd';
+import Succeed from './login/succeedTitle';
+import Game from './game/game';
+import ResetFormPwd from './login/ResetPwdForm';
 
 const getData = async () => {
     try {
@@ -33,6 +34,7 @@ const MyNavigation = () => {
             <Stack.Screen name="ForgotPwd" component={ForgotPwd} />
             <Stack.Screen name="Succeed" component={Succeed} />
             <Stack.Screen name="Game" component={Game} />
+            <Stack.Screen name="ResetFormPwd" component={ResetFormPwd} />
         </Stack.Navigator>
     )
 }

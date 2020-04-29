@@ -7,7 +7,7 @@ import * as yup from 'yup';
 
 const Login = ({navigation}) => {
 
-    const test = (value) => {
+    const SendLoginData = (value) => {
         return fetch('http://10.0.2.2:3000/login', {
             method: 'POST',
             headers: {
@@ -38,7 +38,7 @@ const Login = ({navigation}) => {
                 <Formik
                 initialValues={{ email: '', password: '' }}
                 onSubmit={(values,actions)=>{
-                    test(values).then((response)=>{
+                    SendLoginData(values).then((response)=>{
                         console.log(response)
                         if(response == 'Email doesn\'t found'){
                             actions.setFieldError('email','The email is invalid')

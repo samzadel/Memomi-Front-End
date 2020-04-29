@@ -7,7 +7,7 @@ import * as yup from 'yup';
 
 const SignUp = ({navigation}) => {
 
-    const test = (value) => {
+    const SendSignUpData = (value) => {
         return fetch('http://10.0.2.2:3000/signUp', {
             method: 'POST',
             headers: {
@@ -39,7 +39,7 @@ const SignUp = ({navigation}) => {
             <Formik
                 initialValues={{ email: '', password: '', year_birth: '' }}
                 onSubmit={(values,actions)=>{
-                    test(values).then((response)=>{
+                    SendSignUpData(values).then((response)=>{
                         if(response == 'email exists'){
                             actions.setFieldError('email','This email already exists')
                         }else{
@@ -51,6 +51,7 @@ const SignUp = ({navigation}) => {
                                 }
                               }
                               storeToken()
+                              Keyboard.dismiss()
                             navigation.navigate('menu')
                         }
                     })

@@ -1,7 +1,6 @@
 import * as React from 'react'; 
 import { NavigationContainer,useLinking } from '@react-navigation/native';
 import MyNavigation from './components/navigation';
-import Login from './components/login/logIn';
 
 const App = () => {
 
@@ -34,16 +33,11 @@ const App = () => {
 
         setIsReady(true);
       });
-      console.log(initialState)
   }, [getInitialState]);
 
   if (!isReady) {
     return null;
   }
-
-  
-
-
 
   return (
    <NavigationContainer initialState={initialState} ref={ref}>
@@ -52,7 +46,6 @@ const App = () => {
   );
 
 };
-
 
 
 export default App;

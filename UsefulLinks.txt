@@ -11,3 +11,5 @@ Za021166
 https://github.com/react-navigation/react-navigation/issues/6738
 
 https://medium.com/@shovonroy/how-to-properly-navigate-with-react-navigation-e38fe3bf7381
+
+https://reactnavigation.org/docs/params/

@@ -6,10 +6,10 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 
 
-const ForgotPwd = ({ navigation }) => {
+const ResetFormPwd = ({ navigation }) => {
 
-    const SendEmailData = (value) => {
-        return fetch('http://10.0.2.2:3000/ForgotPwd', {
+    const SendPwdData = (value) => {
+        return fetch('http://10.0.2.2:3000/resetPwd', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
@@ -26,7 +26,10 @@ const ForgotPwd = ({ navigation }) => {
             });
     }
     const validationSchema = yup.object().shape({
-        email: yup.string().email('Invalid email').required('Email required'),
+        password: yup.string().required('Password required').min(5, 'Too short!').max(10, 'Too long!'),
+        confirmPwd: yup.string().required('Confirm password required').test('confirmPwd', 'The password is not equal', function (value) {
+            return this.parent.password == value
+        })
     })
 
 
@@ -36,23 +39,22 @@ const ForgotPwd = ({ navigation }) => {
                 <Image source={require('../../assets/images/Logo_Memomi.png')}></Image>
             </HideWithKeyboard>
             <Formik
-                initialValues={{ email: '' }}
-                onSubmit={(values, actions) => {
-                    SendEmailData(values).then((response) => {
-                        if (response == 'Email doesn\'t found') {
-                            actions.setFieldError('email', 'The email is invalid')
-                        }
+                initialValues={{ password: '', confirmPwd: '' }}
+                onSubmit={async (values) => {
+
+                    delete values['confirmPwd']
+
+                    const email = await AsyncStorage.getItem('email') // Get email from asyncStorage
+
+                    values['email'] = email
+                     
+                    await AsyncStorage.removeItem('email');
+                            
+                    await SendPwdData(values).then((response) => {
+                        console.log(values)
                         if (response == 'succeed') {
-                             async function storeEmail () {
-                                Keyboard.dismiss()
-                                try {
-                                    await AsyncStorage.setItem('email', values.email) // Store email in AsyncStorage to know which user wants to reset his password
-                                    await navigation.navigate("Succeed")
-                                } catch (e) {
-                                    console.log(e)
-                                }
-                            }
-                            storeEmail()
+                            Keyboard.dismiss()
+                            navigation.navigate("Login")
                         }
                     })
                 }}
@@ -61,8 +63,10 @@ const ForgotPwd = ({ navigation }) => {
                 {
                     formikProps => (
                         <>
-                            <TextInput placeholder="Email" style={styles.email} onChangeText={formikProps.handleChange('email')} onBlur={formikProps.handleBlur('email')} />
-                            {formikProps.errors.email && formikProps.touched.email ? <Text style={{ color: "red" }}>{formikProps.errors.email}</Text> : null}
+                            <TextInput placeholder="Your new password" style={styles.password} onChangeText={formikProps.handleChange('password')} onBlur={formikProps.handleBlur('password')} />
+                            {formikProps.errors.password && formikProps.touched.password ? <Text style={{ color: "red" }}>{formikProps.errors.password}</Text> : null}
+                            <TextInput placeholder="Confirm password" style={styles.password} onChangeText={formikProps.handleChange('confirmPwd')} onBlur={formikProps.handleBlur('confirmPwd')} />
+                            {formikProps.errors.confirmPwd && formikProps.touched.confirmPwd ? <Text style={{ color: "red" }}>{formikProps.errors.confirmPwd}</Text> : null}
                             {
                                 !formikProps.isValid || !formikProps.dirty ?
                                     <TouchableOpacity style={[styles.buttonPlay, { opacity: 0.7 }]} disabled={true}>
@@ -88,7 +92,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: "#f7e1bf"
     },
-    email: {
+    password: {
         borderRadius: 100 / 2,
         marginTop: 20,
         paddingLeft: 15,
@@ -116,4 +120,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default ForgotPwd;
+export default ResetFormPwd;
